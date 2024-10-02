@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Resources</h2>
+  <ul>
+    {% for resource in resources %}
+      <li>
+        <a href="{% url 'resource_detail' resource.id %}">{{ resource.title }}</a>
+        <p>{{ resource.content|truncatewords:20 }}</p>  <!-- Show a snippet of content -->
+        <p><small>Author: {{ resource.author.username }} | {{ resource.created_at|date:"F j, Y" }}</small></p>
+      </li>
+    {% empty %}
+      <li>No resources available.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

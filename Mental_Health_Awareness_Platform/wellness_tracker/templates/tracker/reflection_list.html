@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Your Reflections</h2>
+  <ul>
+    {% for reflection in reflections %}
+      <li>
+        <strong>{{ reflection.date }}:</strong> Mood: {{ reflection.mood }}<br>
+        Thoughts: {{ reflection.thoughts }}<br>
+        Gratitude: {{ reflection.gratitude }}
+      </li>
+    {% empty %}
+      <li>No reflections found.</li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'add_reflection' %}">Add a new reflection</a>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>{{ resource.title }}</h2>
+  <p><small>By {{ resource.author.username }} on {{ resource.created_at|date:"F j, Y" }}</small></p>
+  <p>{{ resource.content }}</p>
+
+  {% if resource.url %}
+    <p><a href="{{ resource.url }}" target="_blank">Watch Video</a></p>
+  {% endif %}
+
+  <a href="{% url 'resource_list' %}">Back to Resources</a>
+{% endblock %}

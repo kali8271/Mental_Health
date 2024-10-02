@@ -1,8 +1,9 @@
-<form method="POST">
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Schedule a Therapy Session</h2>
+  <form method="POST">
     {% csrf_token %}
-    <label for="date">Date:</label>
-    <input type="date" name="date" required>
-    <label for="time">Time:</label>
-    <input type="time" name="time" required>
+    {{ form.as_p }}
     <button type="submit">Schedule</button>
-</form>
+  </form>
+{% endblock %}

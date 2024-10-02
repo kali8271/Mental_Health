@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Checkout for Session: {{ session.title }}</h2>
+  <p>Price: ${{ session.price }}</p>
+
+  <form method="POST">
+    {% csrf_token %}
+    <button type="submit">Confirm Payment</button>
+  </form>
+
+  <a href="{% url 'session_list' %}">Cancel</a>
+{% endblock %}
