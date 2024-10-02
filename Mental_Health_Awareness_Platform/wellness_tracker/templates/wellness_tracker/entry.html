@@ -1,0 +1,8 @@
+<form method="POST">
+    {% csrf_token %}
+    <label for="mood">Mood:</label>
+    <input type="text" name="mood" required>
+    <label for="reflection">Reflection:</label>
+    <textarea name="reflection" required></textarea>
+    <button type="submit">Save</button>
+</form>
