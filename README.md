@@ -1,0 +1,91 @@
+Project Mental Health follow this strucutre
+
+mental_health_wellness_platform/
+│
+├── mental_health/
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+│   └── asgi.py            # For WebSockets if using Django Channels
+│
+├── apps/
+│   ├── accounts/           # Manages user profiles, authentication, and role-based permissions
+│   │   ├── models.py
+│   │   ├── forms.py
+│   │   ├── views.py
+│   │   ├── urls.py
+│   │   └── templates/
+│   │       └── accounts/
+│   │           ├── login.html
+│   │           ├── register.html
+│   │           └── profile.html
+│   │
+│   ├── therapy_sessions/   # Handles session scheduling, booking, and video integration
+│   │   ├── models.py
+│   │   ├── views.py
+│   │   ├── urls.py
+│   │   └── templates/
+│   │       └── sessions/
+│   │           └── schedule.html
+│   │
+│   ├── chat/               # Real-time chat functionality using Django Channels or third-party API
+│   │   ├── models.py
+│   │   ├── consumers.py    # WebSockets for real-time communication
+│   │   ├── views.py
+│   │   ├── urls.py
+│   │   └── templates/
+│   │       └── chat/
+│   │           └── chat_room.html
+│   │
+│   ├── wellness_tracker/   # User wellness tracking with daily reflections
+│   │   ├── models.py
+│   │   ├── forms.py
+│   │   ├── views.py
+│   │   ├── urls.py
+│   │   └── templates/
+│   │       └── tracker/
+│   │           └── reflection.html
+│   │
+│   ├── resources/          # Blog, video resources, and library of mental health content
+│   │   ├── models.py
+│   │   ├── views.py
+│   │   ├── urls.py
+│   │   └── templates/
+│   │       └── resources/
+│   │           └── resource_list.html
+│   │           └── resource_detail.html
+│   │
+│   ├── community/          # Anonymized peer support forum
+│   │   ├── models.py
+│   │   ├── views.py
+│   │   ├── urls.py
+│   │   └── templates/
+│   │       └── community/
+│   │           └── forum.html
+│   │
+│   ├── payments/           # Payment integration for session bookings
+│   │   ├── models.py
+│   │   ├── views.py
+│   │   ├── urls.py
+│   │   └── templates/
+│   │       └── payments/
+│   │           └── checkout.html
+│   │
+│   ├── admin/              # Admin panel for managing professionals, sessions, content, and users
+│   │   ├── admin.py
+│   │   ├── urls.py
+│   │   └── templates/
+│   │       └── admin/
+│   │           └── dashboard.html
+│
+├── static/                 # Static files (CSS, JS, images)
+│   └── css/
+│   └── js/
+│
+├── templates/              # Global templates and base layout
+│   └── base.html
+│   └── navbar.html
+│   └── footer.html
+│
+├── manage.py               # Django's management script
+└── requirements.txt        # List of project dependencies
