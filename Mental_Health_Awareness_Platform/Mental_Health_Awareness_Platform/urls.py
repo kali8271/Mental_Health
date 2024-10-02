@@ -19,9 +19,9 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('apps.accounts.urls')),
-    path('sessions/', include('apps.therapy_sessions.urls')),
-    path('tracker/', include('apps.wellness_tracker.urls')),
-    path('resources/', include('apps.resources.urls')),
-    path('payments/', include('apps.payments.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('sessions/', include('therapy_sessions.urls')),
+    path('tracker/', include('wellness_tracker.urls')),
+    path('resources/', include('resources.urls')),
+    path('payments/', include('payments.urls')),
 ]
