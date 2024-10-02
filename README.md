@@ -1,91 +1,73 @@
-Project Mental Health follow this strucutre
+Project Mental_Health explaination
 
-mental_health_wellness_platform/
-│
-├── mental_health/
-│   ├── settings.py
-│   ├── urls.py
-│   ├── wsgi.py
-│   └── asgi.py            # For WebSockets if using Django Channels
-│
-├── apps/
-│   ├── accounts/           # Manages user profiles, authentication, and role-based permissions
-│   │   ├── models.py
-│   │   ├── forms.py
-│   │   ├── views.py
-│   │   ├── urls.py
-│   │   └── templates/
-│   │       └── accounts/
-│   │           ├── login.html
-│   │           ├── register.html
-│   │           └── profile.html
-│   │
-│   ├── therapy_sessions/   # Handles session scheduling, booking, and video integration
-│   │   ├── models.py
-│   │   ├── views.py
-│   │   ├── urls.py
-│   │   └── templates/
-│   │       └── sessions/
-│   │           └── schedule.html
-│   │
-│   ├── chat/               # Real-time chat functionality using Django Channels or third-party API
-│   │   ├── models.py
-│   │   ├── consumers.py    # WebSockets for real-time communication
-│   │   ├── views.py
-│   │   ├── urls.py
-│   │   └── templates/
-│   │       └── chat/
-│   │           └── chat_room.html
-│   │
-│   ├── wellness_tracker/   # User wellness tracking with daily reflections
-│   │   ├── models.py
-│   │   ├── forms.py
-│   │   ├── views.py
-│   │   ├── urls.py
-│   │   └── templates/
-│   │       └── tracker/
-│   │           └── reflection.html
-│   │
-│   ├── resources/          # Blog, video resources, and library of mental health content
-│   │   ├── models.py
-│   │   ├── views.py
-│   │   ├── urls.py
-│   │   └── templates/
-│   │       └── resources/
-│   │           └── resource_list.html
-│   │           └── resource_detail.html
-│   │
-│   ├── community/          # Anonymized peer support forum
-│   │   ├── models.py
-│   │   ├── views.py
-│   │   ├── urls.py
-│   │   └── templates/
-│   │       └── community/
-│   │           └── forum.html
-│   │
-│   ├── payments/           # Payment integration for session bookings
-│   │   ├── models.py
-│   │   ├── views.py
-│   │   ├── urls.py
-│   │   └── templates/
-│   │       └── payments/
-│   │           └── checkout.html
-│   │
-│   ├── admin/              # Admin panel for managing professionals, sessions, content, and users
-│   │   ├── admin.py
-│   │   ├── urls.py
-│   │   └── templates/
-│   │       └── admin/
-│   │           └── dashboard.html
-│
-├── static/                 # Static files (CSS, JS, images)
-│   └── css/
-│   └── js/
-│
-├── templates/              # Global templates and base layout
-│   └── base.html
-│   └── navbar.html
-│   └── footer.html
-│
-├── manage.py               # Django's management script
-└── requirements.txt        # List of project dependencies
+Key Components Breakdown
+Accounts (User Authentication & Profiles)
+
+Purpose: Manages user authentication (sign up, login, password reset) and profile creation for both clients and mental health professionals.
+Models:
+UserProfile: Custom user model with role-based fields (Client, Therapist).
+TherapistProfile: Additional fields for professionals (credentials, availability).
+Features:
+Role-based views (clients and therapists have different access).
+Secure storage for sensitive user data (using Django's built-in authentication system).
+Therapy Sessions (Scheduling & Booking)
+
+Purpose: Manages session bookings between clients and therapists, including payment integration.
+Models:
+Session: Tracks session details (date, time, therapist, client).
+Payment: Tracks payments for therapy sessions.
+Features:
+Booking system with calendar integration.
+Payment processing using Stripe/PayPal.
+Integration with real-time video API (e.g., Twilio or WebRTC).
+Chat (Real-Time Communication)
+
+Purpose: Allows clients and therapists to communicate in real-time via text chat.
+WebSockets: Using Django Channels for real-time communication.
+Features:
+One-on-one private chats between client and therapist.
+Optional video integration for live sessions.
+Message encryption for privacy.
+Wellness Tracker (Daily Reflections & Progress Tracking)
+
+Purpose: Allows users to track their daily wellness, mood, and reflections.
+Models:
+WellnessEntry: Stores daily entries for reflections and mood tracking.
+Features:
+A daily form where users can input reflections, feelings, and mood.
+Data visualization for users to track their progress over time.
+Content Library (Mental Health Resources)
+
+Purpose: Provides access to mental health blogs, videos, and other resources.
+Models:
+Resource: Stores blog posts, videos, and other multimedia content.
+Features:
+Categorized resources (depression, anxiety, mindfulness, etc.).
+Search functionality for users to find content easily.
+Admin control over resource creation and editing.
+Anonymized Peer Support Community
+
+Purpose: Provides a space for users to interact anonymously, share stories, and provide support.
+Models:
+Post: Stores user-generated forum posts.
+Comment: Stores comments on posts.
+Features:
+Anonymized posting system (users interact without sharing personal details).
+Moderation tools to prevent misuse or harmful content.
+Discussion categories (e.g., anxiety support, addiction recovery).
+Payments (Session Payment Integration)
+
+Purpose: Facilitates secure payments for therapy sessions.
+Models:
+Payment: Tracks payment details (session, amount, user).
+Features:
+Integration with payment gateways like Stripe or PayPal.
+Checkout page for booking therapy sessions.
+Refund and payment history tracking.
+Admin Panel
+
+Purpose: Allows administrators to manage users, content, sessions, and therapists.
+Features:
+Dashboards for monitoring platform usage, therapist performance, and user engagement.
+Manage payments, sessions, and content resources.
+User management (ban, verify, or promote therapists).
