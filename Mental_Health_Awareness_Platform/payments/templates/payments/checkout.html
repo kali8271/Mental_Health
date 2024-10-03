@@ -1,12 +1,26 @@
 {% extends 'base.html' %}
+
 {% block content %}
-  <h2>Checkout for Session: {{ session.title }}</h2>
-  <p>Price: ${{ session.price }}</p>
+  <div class="checkout-container">
+    <h2 class="checkout-title">Checkout for Session: {{ session.title }}</h2>
+    <p class="checkout-price">Price: ${{ session.price }}</p>
+    
+    <form method="POST" class="checkout-form">
+      {% csrf_token %}
+      
+      <div class="form-group">
+        <label for="payment_method">Choose a payment method:</label>
+        <select name="payment_method" id="payment_method" required>
+            <option value="" disabled selected>Select a payment method</option>
+            <option value="credit_card">Credit Card</option>
+            <option value="paypal">PayPal</option>
+            <!-- Add more payment options as needed -->
+        </select>
+      </div>
 
-  <form method="POST">
-    {% csrf_token %}
-    <button type="submit">Confirm Payment</button>
-  </form>
+      <button type="submit" class="btn">Confirm Payment</button>
+    </form>
 
-  <a href="{% url 'session_list' %}">Cancel</a>
+    <a href="{% url 'session_list' %}" class="cancel-link">Cancel</a>
+  </div>
 {% endblock %}

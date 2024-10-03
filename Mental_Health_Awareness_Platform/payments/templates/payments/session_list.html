@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Available Therapy Sessions</h1>
+  <div class="session-list">
+    {% for session in sessions %}
+      <div class="session">
+        <h3>{{ session.title }}</h3>
+        <p>Price: ${{ session.price }}</p>
+        <a href="{% url 'checkout' session.id %}">Checkout</a>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
