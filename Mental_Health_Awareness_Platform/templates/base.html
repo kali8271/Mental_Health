@@ -1,0 +1,39 @@
+{% load static %}  <!-- Corrected here -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mental Health and Wellness Platform{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Add any other external CSS or meta tags as needed -->
+</head>
+<body>
+
+    <!-- Navbar -->
+    {% include 'navbar.html' %}
+
+    <!-- Main content section -->
+    <div class="main-content">
+        {% block content %}
+        <!-- Content will be injected here by child templates -->
+        {% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Mental Health and Wellness Platform. All rights reserved.</p>
+            <ul>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Add any necessary JavaScript files -->
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

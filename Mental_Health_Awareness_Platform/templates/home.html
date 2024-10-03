@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Welcome to the Mental Health and Wellness Platform</h1>
+        <p>Your journey to better mental health starts here.</p>
+
+        <div class="features">
+            <div class="feature-item">
+                <h2>Therapy Sessions</h2>
+                <p>Schedule and manage your therapy sessions.</p>
+                <a href="{% url 'schedule_session' %}">Book a session</a>
+            </div>
+
+            <div class="feature-item">
+                <h2>Wellness Tracker</h2>
+                <p>Track your daily wellness and reflect on your mental health.</p>
+                <a href="{% url 'add_reflection' %}">Start tracking</a>
+            </div>
+
+           
+
+            <div class="feature-item">
+                <h2>Resources</h2>
+                <p>Explore articles, videos, and other mental health resources.</p>
+                <a href="{% url 'resource_list' %}">Browse resources</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
