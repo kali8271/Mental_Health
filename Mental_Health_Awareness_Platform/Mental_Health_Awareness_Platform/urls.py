@@ -27,4 +27,6 @@ urlpatterns = [
     path('tracker/', include('wellness_tracker.urls')),
     path('resources/', include('resources.urls')),
     path('payments/', include('payments.urls')),
+    path('admin-panel/', include('admin_Panel.urls')),
+
 ]

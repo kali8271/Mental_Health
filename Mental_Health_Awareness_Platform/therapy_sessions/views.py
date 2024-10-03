@@ -15,8 +15,8 @@ def schedule_session(request):
             return redirect('session_list')
     else:
         form = ScheduleSessionForm()
-    return render(request, 'sessions/schedule.html', {'form': form})
+    return render(request, 'therapy_sesseions/schedule.html', {'form': form})
 @login_required
 def session_list(request):
     sessions = TherapySession.objects.filter(client=request.user)
-    return render(request, 'sessions/session_list.html', {'sessions': sessions})
+    return render(request, 'therapy_sesseions/session_list.html', {'sessions': sessions})
