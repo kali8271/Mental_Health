@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Payment
-from therapy_sessions.models import Session  # Assuming you have a Session model
+from therapy_sessions.models import TherapySession  # Assuming you have a Session model
 from django.conf import settings
 
 @login_required
 def checkout(request, session_id):
-    session = Session.objects.get(id=session_id)
+    session = TherapySession.objects.get(id=session_id)
     if request.method == 'POST':
         amount = session.price  # Assume there's a price field in the Session model
         payment = Payment.objects.create(user=request.user, session=session, amount=amount)
