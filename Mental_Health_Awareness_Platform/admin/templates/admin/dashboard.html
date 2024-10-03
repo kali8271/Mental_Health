@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">  <!-- Add your CSS -->
+</head>
+<body>
+    <header>
+        <h1>Admin Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'admin_dashboard' %}">Dashboard</a></li>
+                <li><a href="{% url '#' %}">Manage Professionals</a></li>
+                <li><a href="{% url 'session_list' %}">Manage Sessions</a></li>
+                <li><a href="{% url '#' %}">Manage Content</a></li>
+                <li><a href="{% url '#' %}">Manage Users</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Welcome to the Admin Panel</h2>
+        <p>Use the navigation to manage the platform.</p>
+    </main>
+</body>
+</html>

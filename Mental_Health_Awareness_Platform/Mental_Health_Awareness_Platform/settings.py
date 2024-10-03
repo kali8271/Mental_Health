@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'wellness_tracker',
     'resources',
     'payments',
+    'admin',
 ]
 
 MIDDLEWARE = [
