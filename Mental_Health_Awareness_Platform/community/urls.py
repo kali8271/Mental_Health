@@ -1,7 +1,9 @@
 # community/urls.py
+
 from django.urls import path
-from .views import ForumView
+from .views import forum, create_post
 
 urlpatterns = [
-    path('forum/', ForumView.as_view(), name='forum'),  # Add your forum view here
+    path('forum/', forum, name='forum'),
+    path('forum/create/', create_post, name='create_post'),
 ]

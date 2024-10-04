@@ -1,10 +1,26 @@
 <!-- community/templates/community/forum.html -->
-{% extends 'base.html' %}  <!-- Assuming you have a base template -->
 
-{% block title %}Community Forum{% endblock %}
+{% extends 'base.html' %}
 
 {% block content %}
-    <h1>Welcome to the Community Forum</h1>
-    <p>Feel free to discuss your thoughts and share your experiences here!</p>
-    <!-- Add your forum content here -->
+<h1>Community Forum</h1>
+
+<h2>Create a Post</h2>
+<form method="POST" action="{% url 'create_post' %}">
+    {% csrf_token %}
+    <input type="text" name="title" placeholder="Title" required>
+    <textarea name="content" placeholder="Content" required></textarea>
+    <button type="submit">Submit</button>
+</form>
+
+<h2>Posts</h2>
+<ul>
+    {% for post in posts %}
+        <li>
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.content }}</p>
+            <p>Posted on {{ post.created_at }}</p>
+        </li>
+    {% endfor %}
+</ul>
 {% endblock %}
