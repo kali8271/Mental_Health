@@ -25,6 +25,16 @@
                 <p>Explore articles, videos, and other mental health resources.</p>
                 <a href="{% url 'resource_list' %}">Browse resources</a>
             </div>
+
+
+            <!-- <div class="feature-item">
+                <h2>Chatop</h2>
+                <p>You may chat with experts, they help to resolve it out problem</p>
+                {% for room in room_list %}
+                <a href="{% url 'chat_room' room_name=room.name %}">Virtual Chat</a>
+                {% endfor %}
+
+            </div> -->
         </div>
     </div>
 {% endblock %}
