@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'resources',
     'payments',
     'admin_Panel',
+    'chat',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -75,7 +77,14 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Mental_Health_Awareness_Platform.wsgi.application'
-
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -124,6 +133,10 @@ USE_TZ = True
 
 AUTH_USER_MODEL = 'accounts.UserProfile'  # Custom user model
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
