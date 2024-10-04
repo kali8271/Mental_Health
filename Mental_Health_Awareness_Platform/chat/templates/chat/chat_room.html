@@ -5,6 +5,7 @@
 
 {% block content %}
     <h1>Chat Room: {{ room_name }}</h1>
+    
     <textarea id="chat-log" cols="30" rows="10" readonly></textarea>
     <input id="chat-message-input" type="text" size="100" placeholder="Type your message here...">
     <input id="chat-message-submit" type="button" value="Send">
@@ -12,8 +13,9 @@
     <!-- Link to external CSS file for chat-specific styles -->
     <link rel="stylesheet" href="{% static 'css/chat.css' %}">  <!-- Ensure this is the correct path -->
 
+{% endblock %}
+
+{% block extra_scripts %}
     <!-- Link to external JavaScript file for chat-specific scripts -->
     <script src="{% static 'js/chat.js' %}"></script>
-    <script src="{% static 'js/scripts.js' %}"></script> <!-- Ensure this file exists -->
-
 {% endblock %}
