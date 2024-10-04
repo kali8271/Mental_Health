@@ -8,7 +8,9 @@ class UserRegistrationForm(UserCreationForm):
         fields = ['username', 'email', 'role', 'bio', 'password1', 'password2']
 
 
+
+
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['username', 'email', 'bio']
+        fields = ['first_name', 'last_name', 'email', 'bio', 'role', 'profile_picture']  # Include fields you want in the form

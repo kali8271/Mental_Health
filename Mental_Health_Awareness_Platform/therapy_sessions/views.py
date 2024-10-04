@@ -18,7 +18,7 @@ def schedule_session(request):
             return redirect('checkout', session_id=session.id)  # Redirect to checkout
     else:
         form = ScheduleSessionForm()
-    return render(request, 'therapy_sesseions/schedule.html', {'form': form})
+    return render(request, 'therapy_sessions/schedule.html', {'form': form})
 
 @login_required
 def session_list(request):

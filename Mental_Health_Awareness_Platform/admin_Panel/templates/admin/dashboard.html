@@ -1,26 +1,11 @@
-{% load static %}
+<!-- admin/templates/admin/dashboard.html -->
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">  <!-- Add your CSS -->
-</head>
-<body>
-    <header>
-        <h1>Admin Dashboard</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'admin_dashboard' %}">Dashboard</a></li>
-               
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <h2>Welcome to the Admin Panel</h2>
-        <p>Use the navigation to manage the platform.</p>
-    </main>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<h1>Admin Dashboard</h1>
+<p>Manage professionals, sessions, content, and users from here.</p>
+<!-- Add links to manage professionals, sessions, etc. -->
+{% endblock %}

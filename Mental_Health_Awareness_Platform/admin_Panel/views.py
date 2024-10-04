@@ -1,4 +1,11 @@
-from django.shortcuts import render
+# admin/views.py
 
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+
+@login_required
 def dashboard(request):
-    return render(request, 'admin/dashboard.html')  # Render the admin dashboard template
+    if request.user.is_superuser:
+        return render(request, 'admin/dashboard.html')  # Admin dashboard
+    else:
+        return render(request, 'admin/user_dashboard.html')  # User dashboard

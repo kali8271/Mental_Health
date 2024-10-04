@@ -138,6 +138,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+# settings.py
+
+LOGIN_REDIRECT_URL = '/admin/dashboard/'  # Redirect to the dashboard after login
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 

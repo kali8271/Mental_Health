@@ -1,6 +1,8 @@
+# admin/urls.py
+
 from django.urls import path
 from .views import dashboard
 
 urlpatterns = [
-    path('', dashboard, name='admin_dashboard'),  # Admin dashboard URL
+    path('dashboard/', dashboard, name='dashboard'),  # Unified dashboard URL
 ]

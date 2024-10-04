@@ -1,39 +1,94 @@
 {% extends 'base.html' %}
-{% load static %}
-
 
 
 {% block content %}
-  <header>
-      <h1>User Profile</h1>
-  </header>
-  <main>
-      <h2>My Profile</h2>
-      <h3>Payment History</h3>
-      <table>
-          <thead>
-              <tr>
-                  <th>Session</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                  <th>Date</th>
-              </tr>
-          </thead>
-          <tbody>
-              {% for payment in payments %}
-                  <tr>
-                      <td>{{ payment.session.title }}</td>
-                      <td>${{ payment.amount }}</td>
-                      <td>{{ payment.status }}</td>
-                      <td>{{ payment.created_at|date:"Y-m-d H:i" }}</td> <!-- Assuming you have a created_at field -->
-                  </tr>
-              {% empty %}
-                  <tr>
-                      <td colspan="4">No payments made yet.</td>
-                  </tr>
-              {% endfor %}
-          </tbody>
-      </table>
-      <a href="{% url 'session_list' %}">Back to Sessions</a>
-  </main>
+<header>
+    <h1>User Profile</h1>
+</header>
+<main>
+    <h2>My Profile</h2>
+
+    <section class="profile-info">
+        <h3>Profile Information</h3>
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <!-- Include other profile details as necessary -->
+        <p><strong>Bio:</strong> {{ user_profile.bio }}</p> <!-- Example field from UserProfile model -->
+        {% if user_profile.profile_picture %}
+            <img src="{{ user_profile.profile_picture.url }}" alt="Profile Picture" style="width: 150px; height: auto;">
+        {% endif %}
+    </section>
+
+    <section class="payment-history">
+        <h3>Payment History</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Session</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment in payments %}
+                    <tr>
+                        <td>{{ payment.session.title }}</td>
+                        <td>${{ payment.amount }}</td>
+                        <td>{{ payment.status }}</td>
+                        <td>{{ payment.created_at|date:"Y-m-d H:i" }}</td> <!-- Assuming you have a created_at field -->
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">No payments made yet.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="user-dashboard">
+        <h3>Your Dashboard</h3>
+        <p>Manage your sessions, view analytics, and more:</p>
+        <ul>
+            <li><a href="{% url 'session_list' %}">View Sessions</a></li>
+            <li><a href="{% url 'dashboard' %}">Go to Dashboard</a></li> <!-- Link to user dashboard -->
+            <!-- Add more links as necessary -->
+        </ul>
+    </section>
+
+    <a href="{% url 'session_list' %}">Back to Sessions</a>
+</main>
+
+<style>
+    /* Simple styles for the profile page */
+    header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    main {
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        max-width: 800px;
+        margin: auto;
+        background-color: #f9f9f9;
+    }
+    section {
+        margin-bottom: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
 {% endblock %}

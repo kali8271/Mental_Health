@@ -4,3 +4,4 @@ django-allauth>=0.44.0  # For authentication and user management
 stripe>=2.56.0  # For handling payments
 channels>=3.0.0  # For real-time chat (optional)
 redis
+pillow
