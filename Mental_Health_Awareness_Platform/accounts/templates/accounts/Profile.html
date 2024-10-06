@@ -1,24 +1,28 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
 <header>
     <h1>User Profile</h1>
+    
 </header>
 <main>
     <h2>My Profile</h2>
 
     <section class="profile-info">
         <h3>Profile Information</h3>
-        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Username:</strong> {{ user.username }}</p> 
         <p><strong>Email:</strong> {{ user.email }}</p>
-        <!-- Include other profile details as necessary -->
-        <p><strong>Bio:</strong> {{ user_profile.bio }}</p> <!-- Example field from UserProfile model -->
-        {% if user_profile.profile_picture %}
-            <img src="{{ user_profile.profile_picture.url }}" alt="Profile Picture" style="width: 150px; height: auto;">
-        {% endif %}
+        <p><strong>Bio:</strong> {{ user_profile.bio }}</p> 
+    
+        <div class="profile-picture"> <!-- Add this class for styling -->
+            {% if user_profile.client_photo %}
+                <img src="{{ user_profile.client_photo.url }}" alt="Client Photo">
+            {% elif user_profile.therapist_photo %}
+                <img src="{{ user_profile.therapist_photo.url }}" alt="Therapist Photo">
+            {% endif %}
+        </div>
     </section>
-
+    
     <section class="payment-history">
         <h3>Payment History</h3>
         <table>
@@ -60,12 +64,14 @@
     <a href="{% url 'session_list' %}">Back to Sessions</a>
 </main>
 
+
 <style>
     /* Simple styles for the profile page */
     header {
         text-align: center;
         margin-bottom: 20px;
     }
+
     main {
         padding: 20px;
         border: 1px solid #ccc;
@@ -74,18 +80,43 @@
         margin: auto;
         background-color: #f9f9f9;
     }
+
     section {
         margin-bottom: 20px;
     }
+
+    .profile-info {
+        display: flex; /* Use flexbox for horizontal layout */
+        align-items: center;
+        justify-content: space-between; 
+    }
+
+    .profile-info-content {
+        flex-grow: 1; /* Allow this section to grow */
+        margin-right: 0px; /* Space between info and picture */
+    }
+
+    .profile-picture {
+        margin-left: 20px; /* Space between profile info and picture */
+    }
+
+    .profile-picture img {
+        width: 150px; /* Set desired width for the profile picture */
+        height: 150px; /* Set desired height for the profile picture */
+        
+    }
+
     table {
         width: 100%;
         border-collapse: collapse;
     }
+
     th, td {
         padding: 8px 12px;
         border: 1px solid #ddd;
         text-align: left;
     }
+
     th {
         background-color: #f2f2f2;
     }

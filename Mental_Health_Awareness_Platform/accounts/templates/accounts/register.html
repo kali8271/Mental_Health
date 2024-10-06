@@ -1,11 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h2>Register</h2>
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-  </form>
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const roleSelect = document.querySelector('select[name="role"]');
+          const clientPhotoInput = document.querySelector('input[name="client_photo"]');
+          const therapistPhotoInput = document.querySelector('input[name="therapist_photo"]');
+
+          function togglePhotoFields() {
+              if (roleSelect.value === 'client') {
+                  clientPhotoInput.parentElement.style.display = 'block';  // Show client photo
+                  therapistPhotoInput.parentElement.style.display = 'none'; // Hide therapist photo
+              } else if (roleSelect.value === 'therapist') {
+                  therapistPhotoInput.parentElement.style.display = 'block'; // Show therapist photo
+                  clientPhotoInput.parentElement.style.display = 'none';     // Hide client photo
+              } else {
+                  clientPhotoInput.parentElement.style.display = 'none';    // Hide both
+                  therapistPhotoInput.parentElement.style.display = 'none'; 
+              }
+          }
+
+          // Initial toggle based on the selected role
+          togglePhotoFields();
+
+          roleSelect.addEventListener('change', togglePhotoFields);
+      });
+  </script>
+
+  <button type="submit">Register</button>
+</form>
+
   <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
 {% endblock %}
 

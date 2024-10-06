@@ -6,16 +6,18 @@ class UserProfile(AbstractUser):
         ('client', 'Client'),
         ('therapist', 'Therapist'),
     )
-    
-    # Role of the user (client or therapist)
-    role = models.CharField(max_length=10, choices=ROLES)
-    
-    # Additional fields for user profile
+
+    role = models.CharField(max_length=10, choices=ROLES, default='client')
     bio = models.TextField(blank=True, null=True)
-    profile_picture = models.ImageField(upload_to='profile_pics', blank=True, null=True)  # Add profile picture field if needed
+    client_photo = models.ImageField(upload_to='client_photos', blank=True, null=True)
+    therapist_photo = models.ImageField(upload_to='therapist_photos', blank=True, null=True)
 
     def __str__(self):
-        return self.username  # Return the username for easy identification in admin panel
+        if self.role == 'therapist' and self.therapist_photo:
+            return f'{self.username} (Therapist, {self.therapist_photo.url})'
+        elif self.role == 'client' and self.client_photo:
+            return f'{self.username} (Client, {self.client_photo.url})'
+        return self.username
 
     class Meta:
         verbose_name = 'User Profile'
