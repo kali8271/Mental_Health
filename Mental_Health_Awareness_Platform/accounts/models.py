@@ -7,7 +7,7 @@ class UserProfile(AbstractUser):
         ('therapist', 'Therapist'),
     )
 
-    role = models.CharField(max_length=10, choices=ROLES, default='client')
+    role = models.CharField(max_length=10, choices=ROLES)
     bio = models.TextField(blank=True, null=True)
     client_photo = models.ImageField(upload_to='client_photos', blank=True, null=True)
     therapist_photo = models.ImageField(upload_to='therapist_photos', blank=True, null=True)
