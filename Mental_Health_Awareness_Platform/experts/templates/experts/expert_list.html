@@ -1,0 +1,39 @@
+<!-- experts/templates/experts/expert_list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center my-4">Our Experts</h2>
+    <div class="row">
+        {% for expert in experts %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{{ expert.image.url }}" class="card-img-top" alt="{{ expert.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ expert.name }}</h5>
+                    <p class="card-text">{{ expert.specialty }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p>No experts available at the moment.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    /* Add this to your CSS file */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.card img {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+</style>
+{% endblock %}

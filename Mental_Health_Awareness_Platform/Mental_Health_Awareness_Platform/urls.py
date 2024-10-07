@@ -32,7 +32,8 @@ urlpatterns = [
     path('admin-panel/', include('admin_Panel.urls')),
     path('chat/',include('chat.urls')),
     path('community/', include('community.urls')),
-
+    path('experts/',include('experts.urls')),
+    
 ]
 
 
