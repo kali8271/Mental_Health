@@ -26,13 +26,27 @@
                 <a href="{% url 'resource_list' %}">Browse resources</a>
             </div>
 
-
+            
             <div class="feature-item">
                 <h2>Community</h2>
                 <p>Join our community for better experiences.</p>
                 <a href="{% url 'forum' %}">Join Community</a>
             </div>
             
+        </div>
+
+        <div class="container">
+                <h2>Our Experts</h2>
+                <div  class="expert">
+
+                    {% for expert in experts %}
+                    <div class="expert">
+                        <img src="{{ expert.image.url }}" alt="{{ expert.name }}">
+                        <h3>{{ expert.name }}</h3>
+                        <p>{{ expert.specialty }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
         </div>
     </div>
 {% endblock %}
