@@ -1,0 +1,59 @@
+<!-- templates/privacy_policy.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Privacy Policy</h2>
+    <p class="lead text-center">Effective Date: [Insert Date]</p>
+    
+    <h4>1. Introduction</h4>
+    <p>This Privacy Policy outlines how we collect, use, and protect your personal information when you visit our Mental Health Awareness Platform. By using our services, you consent to the data practices described in this policy.</p>
+    
+    <h4>2. Information We Collect</h4>
+    <p>We may collect the following types of information:</p>
+    <ul>
+        <li><strong>Personal Information:</strong> Name, email address, contact information, and any other information you provide when creating an account or contacting us.</li>
+        <li><strong>Usage Data:</strong> Information about how you use our platform, including your IP address, browser type, pages visited, and the time and date of your visit.</li>
+        <li><strong>Cookies:</strong> We use cookies and similar tracking technologies to enhance your experience on our platform. You can manage your cookie preferences through your browser settings.</li>
+    </ul>
+
+    <h4>3. How We Use Your Information</h4>
+    <p>We use the information we collect for the following purposes:</p>
+    <ul>
+        <li>To provide and maintain our services.</li>
+        <li>To communicate with you, including responding to your inquiries and sending updates about our services.</li>
+        <li>To improve our platform, enhance user experience, and analyze usage trends.</li>
+        <li>To comply with legal obligations and protect the rights of our users.</li>
+    </ul>
+
+    <h4>4. Data Sharing and Disclosure</h4>
+    <p>We do not sell or rent your personal information to third parties. We may share your information in the following circumstances:</p>
+    <ul>
+        <li>With service providers who assist us in operating our platform and providing our services.</li>
+        <li>To comply with legal requirements, respond to subpoenas, or protect the rights, property, or safety of our platform, users, or others.</li>
+    </ul>
+
+    <h4>5. Data Security</h4>
+    <p>We implement reasonable security measures to protect your personal information from unauthorized access, disclosure, alteration, and destruction. However, no method of transmission over the internet or electronic storage is 100% secure, and we cannot guarantee absolute security.</p>
+
+    <h4>6. Your Rights</h4>
+    <p>You have the right to:</p>
+    <ul>
+        <li>Access the personal information we hold about you.</li>
+        <li>Request correction of any inaccurate or incomplete information.</li>
+        <li>Request deletion of your personal information, subject to legal obligations.</li>
+        <li>Withdraw consent to the processing of your information, where applicable.</li>
+    </ul>
+
+    <h4>7. Changes to This Privacy Policy</h4>
+    <p>We may update this Privacy Policy from time to time. We will notify you of any significant changes by posting the new policy on our platform and updating the effective date. Your continued use of the platform after changes constitutes your acceptance of the new policy.</p>
+
+    <h4>8. Contact Us</h4>
+    <p>If you have any questions or concerns about this Privacy Policy or our data practices, please contact us at <a href="mailto:info@yourplatform.com">info@yourplatform.com</a>.</p>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+    </div>
+</div>
+{% endblock %}

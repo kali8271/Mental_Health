@@ -23,6 +23,9 @@ from .views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
+    path('about/',about, name='about'),
+    path('terms/',terms, name='terms'),
+    path('privacy/',privacy, name='privacy'),
     path('contact/',contact, name='contact'),
     path('accounts/', include('accounts.urls')),
     path('sessions/', include('therapy_sessions.urls')),
@@ -33,7 +36,7 @@ urlpatterns = [
     path('chat/',include('chat.urls')),
     path('community/', include('community.urls')),
     path('experts/',include('experts.urls')),
-    
+
 ]
 
 
