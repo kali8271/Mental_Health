@@ -1,36 +1,40 @@
-<!-- therapy_sessions/templates/therapy_sessions/session_list.html -->
-
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>My Scheduled Sessions</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Session Title</th>
-            <th>Session Date</th>
-            <th>Status</th>
-            <th>Action</th>  <!-- New column for actions -->
-        </tr>
-    </thead>
-    <tbody>
-        {% for session in sessions %}
-        <tr>
-            <td>{{ session.title }}</td>
-            <td>{{ session.date }}</td>
-            <td>{{ session.booked|yesno:"Booked,Available" }}</td>
-            <td>
-                {% if not session.booked %}
-                    <a href="{% url 'checkout' session.id %}">Checkout</a>  <!-- Checkout link -->
-                {% endif %}
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="4">No scheduled sessions.</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<h2>Your Booked Therapy Sessions</h2>
+
+<ul>
+    {% for session in user_sessions %}
+        <li>
+            Session with {{ session.therapist.username }} on {{ session.session_date }}<br>
+            Duration: {{ session.session_duration }} minutes<br>
+            <strong>Status:</strong> {% if session.booked %}Booked{% else %}Available{% endif %}
+            {% if session.booked %}
+                <!-- Cancel Booking Button -->
+                <form action="{% url 'cancel_booking' session.id %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Cancel Booking</button>
+                </form>
+            {% endif %}
+        </li>
+    {% empty %}
+        <li>You have no booked sessions.</li>
+    {% endfor %}
+</ul>
+
+<h2>Available Therapy Sessions</h2>
+
+<ul>
+    {% for session in available_sessions %}
+        <li>
+            Session with {{ session.therapist.username }} on {{ session.session_date }}<br>
+            Duration: {{ session.session_duration }} minutes<br>
+            <a href="{% url 'checkout' session.id %}">Book Now</a>
+        </li>
+    {% empty %}
+        <li>No available sessions at this time.</li>
+    {% endfor %}
+</ul>
+
 <a href="{% url 'schedule_session' %}">Schedule New Session</a>
 {% endblock %}

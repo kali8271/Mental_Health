@@ -3,7 +3,7 @@
 {% block content %}
   <div class="checkout-container">
     <h2 class="checkout-title">Checkout for Session: {{ session.title }}</h2>
-    <p class="checkout-price">Price: ${{ session.price }}</p>
+    <p class="checkout-price">Price: ${{ session.calculate_price }}</p>
     
     <form method="POST" class="checkout-form">
       {% csrf_token %}
