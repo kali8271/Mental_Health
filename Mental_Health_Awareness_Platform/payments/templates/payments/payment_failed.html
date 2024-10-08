@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container text-center">
+    <div class="payment-status failed">
+      <h2 class="payment-title">Payment Failed!</h2>
+      <p class="payment-message">Unfortunately, your payment could not be processed. Please try again or contact support.</p>
+      <img src="https://example.com/failed-icon.png" alt="Payment Failed" class="payment-icon">
+      <div class="error-details">
+        <p>If you have been charged, the amount will be refunded to your account within 5-7 working days.</p>
+      </div>
+      <a href="{% url 'checkout' session.id %}" class="btn btn-warning mt-3">Retry Payment</a>
+      <a href="{% url 'session_list' %}" class="btn btn-secondary mt-3">Back to Sessions</a>
+    </div>
+  </div>
+{% endblock %}

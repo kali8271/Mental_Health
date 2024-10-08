@@ -5,3 +5,4 @@ stripe>=2.56.0  # For handling payments
 channels>=3.0.0  # For real-time chat (optional)
 redis
 pillow
+razorpay

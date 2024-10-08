@@ -3,24 +3,46 @@
 {% block content %}
   <div class="checkout-container">
     <h2 class="checkout-title">Checkout for Session: {{ session.title }}</h2>
-    <p class="checkout-price">Price: ${{ session.calculate_price }}</p>
-    
-    <form method="POST" class="checkout-form">
+    <p class="checkout-details">Session with {{ session.therapist.username }} on {{ session.session_date }}</p>
+    <p class="checkout-price">Price: ₹{{ session.calculate_price }}</p>
+
+    <form method="POST" action="{% url 'confirm_payment' session.id %}" class="checkout-form">
       {% csrf_token %}
       
       <div class="form-group">
         <label for="payment_method">Choose a payment method:</label>
         <select name="payment_method" id="payment_method" required>
             <option value="" disabled selected>Select a payment method</option>
+            <option value="razorpay">Razorpay</option>
             <option value="credit_card">Credit Card</option>
             <option value="paypal">PayPal</option>
-            <!-- Add more payment options as needed -->
         </select>
       </div>
 
-      <button type="submit" class="btn">Confirm Payment</button>
+      {% if payment_method == 'razorpay' %}
+      <!-- Razorpay payment form -->
+      <script
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        data-key="{{ razorpay_key }}"  
+        data-amount="{{ amount|floatformat:0 }}00"  
+        data-currency="INR"
+        data-order_id="{{ order_id }}"  
+        data-buttontext="Pay with Razorpay"
+        data-name="Your Company"
+        data-description="Payment for Therapy Session"
+        data-image="https://yourcompany.com/logo.png"  
+        data-prefill.name="{{ request.user.first_name }}"
+        data-prefill.email="{{ request.user.email }}"
+        data-theme.color="#F37254"
+      ></script>
+      <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+      {% endif %}
+
+      <button type="submit" class="btn btn-primary">Confirm Payment</button>
     </form>
 
-    <a href="{% url 'session_list' %}" class="cancel-link">Cancel</a>
+    <div class="action-links">
+      <button type="submit" class="btn btn-danger" ><a href="{% url 'session_list' %}" class="cancel-link">Cancel</a> </button>
+    </div>
   </div>
 {% endblock %}
