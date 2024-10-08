@@ -15,3 +15,4 @@ def terms(request):
 
 def privacy(request):
     return render(request, 'privacy.html')
+

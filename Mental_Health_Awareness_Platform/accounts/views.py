@@ -1,8 +1,10 @@
+from django.contrib.auth import logout as auth_logout
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from .forms import UserProfileForm, UserRegistrationForm
 from .models import UserProfile  # Ensure UserProfile is imported
 from django.contrib.auth.decorators import login_required
+
 
 def register(request):
     if request.method == 'POST':
@@ -27,7 +29,7 @@ def register(request):
 def profile(request):
     try:
         # Get the current user's profile based on the logged-in user
-        user_profile = UserProfile.objects.get(user=request.user)
+        user_profile = UserProfile.objects.get(username=request.user.username)
     except UserProfile.DoesNotExist:
         # Handle case where the profile does not exist (optional)
         return redirect('register')  # Redirect if profile doesn't exist (adjust as needed)
@@ -43,3 +45,8 @@ def profile(request):
         form = UserProfileForm(instance=user_profile)
 
     return render(request, 'accounts/profile.html', {'form': form, 'user_profile': user_profile})
+
+@login_required
+def logout(request):
+    auth_logout(request)
+    return redirect('home')  # Redirect to the home page after logout
