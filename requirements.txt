@@ -6,3 +6,4 @@ channels>=3.0.0  # For real-time chat (optional)
 redis
 pillow
 razorpay
+django-admin-interface

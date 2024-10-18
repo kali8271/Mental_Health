@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'channels',
     'community',
     'experts',
+    'admin_interface',
+    'colorfield',  # This is a dependency for django-admin-interface
+    
 ]
 
 MIDDLEWARE = [
