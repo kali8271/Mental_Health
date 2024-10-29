@@ -1,4 +1,9 @@
+{% load static %}
+
 <nav>
+    <div class="logo">
+        <img src="{% static 'logo/logo.png' %}" alt="Logo" />
+    </div>
     <ul>
         <li><a href="{% url 'home' %}">Home</a></li>
         <li><a href="{% url 'session_list' %}">Therapy Sessions</a></li>
@@ -6,15 +11,12 @@
         <li><a href="{% url 'resource_list' %}">Resources</a></li>
         <li><a href="{% url 'forum' %}">Community</a></li>
         {% if user.is_authenticated %}
-        
-        <li><a href="{% url 'profile' %}">Profile</a></li>
-        <li><a href="{% url 'chat_room' room_name='general' %}">Chat</a></li>
-        <li><a href="{% url 'logout' %}">Logout</a></li>
-
-        
+            <li><a href="{% url 'profile' %}">Profile</a></li>
+            <li><a href="{% url 'chat_room' room_name='general' %}">Chat</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
         {% else %}
-        <li><a href="{% url 'login' %}">Login</a></li>
-        <li><a href="{% url 'register' %}">Register</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'register' %}">Register</a></li>
         {% endif %}
     </ul>
 </nav>
@@ -23,6 +25,16 @@
     nav {
         background-color: #3498db;
         padding: 10px;
+        display: flex;
+        align-items: center; /* Aligns logo and nav items vertically */
+    }
+
+    .logo {
+        margin-right: 20px; /* Space between logo and nav items */
+    }
+
+    .logo img {
+        height: 40px; /* Adjust height as needed */
     }
 
     nav ul {
@@ -30,11 +42,16 @@
         margin: 0;
         padding: 0;
         display: flex;
-        justify-content: center;
+        justify-content: center; /* Center the list items */
+        flex-grow: 1; /* Allow ul to grow and occupy remaining space */
     }
 
     nav ul li {
-        margin-right: 20px;
+        margin-right: 20px; /* Space between items */
+    }
+
+    nav ul li:last-child {
+        margin-right: 0; /* Remove right margin from last item */
     }
 
     nav ul li a {
