@@ -1,0 +1,99 @@
+/* General reset and body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Container to center the content */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Title Styling */
+.resources-title {
+    font-size: 36px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* Resource List Styling */
+.resource-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Individual Resource Item Styling */
+.resource-item {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.resource-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Title link styling */
+.resource-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #0056b3;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.resource-title:hover {
+    text-decoration: underline;
+}
+
+/* Resource snippet text styling */
+.resource-snippet {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* Resource meta information */
+.resource-meta {
+    font-size: 14px;
+    color: #888;
+}
+
+/* Styling for no resources available */
+.no-resources {
+    text-align: center;
+    font-size: 18px;
+    color: #888;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .resources-title {
+        font-size: 28px;
+    }
+
+    .resource-title {
+        font-size: 20px;
+    }
+
+    .resource-snippet {
+        font-size: 14px;
+    }
+}

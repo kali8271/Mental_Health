@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Mental Health and Wellness Platform{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'css/list.css' %}">
+    <title>{% block title %}Mental Health Wellness Platform{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+    
 </head>
 <body>
 
@@ -15,8 +16,7 @@
             <li><a href="{% url 'home' %}">Home</a></li>
             {% if user.is_authenticated %}
                 <li><a href="{% url 'profile' %}">Profile</a></li>
-                <li><a href="{% url 'session_list' %}">Sessions</a></li>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
+                <li><a href="{% url 'dashboard' %}">Logout</a></li>
             {% else %}
                 <li><a href="{% url 'login' %}">Login</a></li>
                 <li><a href="{% url 'register' %}">Register</a></li>
@@ -33,7 +33,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Mental Health and Wellness Platform</p>
+        <p>&copy; 2024 Mental Health Wellness Platform</p>
     </footer>
 
 </body>

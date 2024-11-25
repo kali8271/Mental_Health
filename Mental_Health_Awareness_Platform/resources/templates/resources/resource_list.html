@@ -1,15 +1,20 @@
 {% extends 'base.html' %}
+
 {% block content %}
-  <h2>Resources</h2>
-  <ul>
-    {% for resource in resources %}
-      <li>
-        <a href="{% url 'resource_detail' resource.id %}">{{ resource.title }}</a>
-        <p>{{ resource.content|truncatewords:20 }}</p>  <!-- Show a snippet of content -->
-        <p><small>Author: {{ resource.author.username }} | {{ resource.created_at|date:"F j, Y" }}</small></p>
-      </li>
-    {% empty %}
-      <li>No resources available.</li>
-    {% endfor %}
-  </ul>
+  <div class="container">
+    <h2 class="resources-title">Resources</h2>
+    <div class="resource-list">
+      {% for resource in resources %}
+        <div class="resource-item">
+          <a href="{% url 'resource_detail' resource.id %}" class="resource-title">{{ resource.title }}</a>
+          <p class="resource-snippet">{{ resource.content|truncatewords:20 }}</p>  <!-- Show a snippet of content -->
+          <p class="resource-meta"><small>Author: {{ resource.author.username }} | {{ resource.created_at|date:"F j, Y" }}</small></p>
+        </div>
+      {% empty %}
+        <div class="resource-item no-resources">
+          <p>No resources available.</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
 {% endblock %}

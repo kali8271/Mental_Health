@@ -1,45 +1,39 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}User Dashboard{% endblock %}
 
 {% block content %}
-<header>
-    <h1>User Dashboard</h1>
-</header>
-<main>
-    <section class="user-profile">
-        
-        <div class="profile-info">
-            
+<link rel="stylesheet" href="{% static 'css/user_dashboard.css' %}">
 
-            {% if user_profile.client_photo %}
-                <img src="{{ user_profile.client_photo.url }}" alt="Client Photo" style="width: 100px; height: 100px;">
-            {% elif user_profile.therapist_photo %}
-                <img src="{{ user_profile.therapist_photo.url }}" alt="Therapist Photo" style="width: 100px; height: 100px;">
-            {% endif %}
-        </div>
-    </section>
+<div class="dashboard-container">
+    <header class="dashboard-header">
+        <h1>User Dashboard</h1>
+    </header>
 
-    <section>
-        <h2><p><strong>Username:</strong> {{ user.username }}</p> </h2>
-        <p>Manage your sessions, view analytics, and more:</p>
-        <ul>
-            <li><a href="{% url 'session_list' %}">View Sessions</a></li>
-            <li><a href="{% url 'profile' %}">Go to Profile</a></li>
-            <!-- Add more links as necessary -->
-        </ul>
-    </section>
-</main>
+    <main>
+        <section class="user-profile">
+            <div class="profile-info">
+                {% if user_profile.client_photo %}
+                    <img src="{{ user_profile.client_photo.url }}" alt="Client Photo" class="profile-img">
+                {% elif user_profile.therapist_photo %}
+                    <img src="{{ user_profile.therapist_photo.url }}" alt="Therapist Photo" class="profile-img">
+                {% endif %}
+                <div class="profile-details">
+                    <h2>{{ user.username }}</h2>
+                    <p>Welcome to your dashboard</p>
+                </div>
+            </div>
+        </section>
 
-<style>
-    .profile-info {
-        display: flex; /* Use flexbox for horizontal layout */
-        align-items: center; /* Align items vertically centered */
-        margin-bottom: 20px; /* Space between profile info and dashboard sections */
-    }
-    .profile-info img {
-       
-        margin-left: 20px; /* Space between text and image */
-    }
-</style>
+        <section class="dashboard-links">
+            <h2>Quick Actions</h2>
+            <p>Manage your sessions, view analytics, and more:</p>
+            <ul>
+                <li><a href="{% url 'session_list' %}" class="dashboard-link">View Sessions</a></li>
+                <li><a href="{% url 'profile' %}" class="dashboard-link">Go to Profile</a></li>
+            </ul>
+        </section>
+    </main>
+</div>
 {% endblock %}

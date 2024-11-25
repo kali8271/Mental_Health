@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
+
 {% block content %}
-  <h2>Schedule a Therapy Session</h2>
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Schedule</button>
-  </form>
+  <div class="container">
+    <h2 class="form-title">Schedule a Therapy Session</h2>
+    <form method="POST" class="schedule-form">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form.as_p }}
+      </div>
+      <button type="submit" class="submit-button">Schedule</button>
+    </form>
+  </div>
 {% endblock %}

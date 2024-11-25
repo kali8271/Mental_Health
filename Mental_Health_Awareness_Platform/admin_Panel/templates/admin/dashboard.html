@@ -1,12 +1,42 @@
-<!-- admin/templates/admin/dashboard.html -->
-
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Admin Dashboard{% endblock %}
 
 {% block content %}
-<h1>Admin Dashboard</h1>
-<p>Manage professionals, sessions, content, and users from here.</p>
+<link rel="stylesheet" href="{% static 'admin/css/dashboard.css' %}">
 
-<!-- Add links to manage professionals, sessions, etc. -->
+<div class="dashboard-container">
+    <header>
+        <h1>Admin Dashboard</h1>
+        <p>Manage professionals, sessions, content, and users from here.</p>
+    </header>
+
+    <section class="dashboard-links">
+        <div class="dashboard-card">
+            <a href="{% url 'manage_professionals' %}">
+                <i class="icon fa fa-user-md"></i>
+                <h3>Manage Professionals</h3>
+            </a>
+        </div>
+        <div class="dashboard-card">
+            <a href="{% url 'manage_sessions' %}">
+                <i class="icon fa fa-calendar"></i>
+                <h3>Manage Sessions</h3>
+            </a>
+        </div>
+        <div class="dashboard-card">
+            <a href="{% url 'manage_content' %}">
+                <i class="icon fa fa-book"></i>
+                <h3>Manage Content</h3>
+            </a>
+        </div>
+        <div class="dashboard-card">
+            <a href="{% url 'manage_users' %}">
+                <i class="icon fa fa-users"></i>
+                <h3>Manage Users</h3>
+            </a>
+        </div>
+    </section>
+</div>
 {% endblock %}

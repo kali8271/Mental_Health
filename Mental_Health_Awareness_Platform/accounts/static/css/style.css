@@ -1,44 +1,105 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
+/* General Reset */
+* {
     margin: 0;
     padding: 0;
-}
-
-.container {
-    text-align: center;
-    padding: 50px;
-}
-
-.features {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: #333;
     display: flex;
-    justify-content: space-around;
-    margin-top: 40px;
-}
-
-.feature-item {
-    background-color: white;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  /* Login Form Wrapper */
+  form {
+    background: white;
+    padding: 2rem 3rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  /* Form Heading */
+  h2 {
+    margin-bottom: 1rem;
+    color: #444;
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+  
+  /* Form Inputs */
+  form input,
+  form button {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    border-radius: 5px;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
-    width: 250px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.feature-item h2 {
-    font-size: 24px;
-}
-
-.feature-item a {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 15px;
-    background-color: #3498db;
+    outline: none;
+  }
+  
+  /* Input Styling */
+  form input:focus {
+    border-color: #6a11cb;
+    box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+  }
+  
+  /* Button Styling */
+  form button {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
     color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  form button:hover {
+    background: linear-gradient(to right, #2575fc, #6a11cb);
+  }
+  
+  /* Register Link */
+  p {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  p a {
+    color: #6a11cb;
+    font-weight: bold;
     text-decoration: none;
-    border-radius: 5px;
-}
-
-.feature-item a:hover {
-    background-color: #2980b9;
-}
+    transition: color 0.3s;
+  }
+  
+  p a:hover {
+    color: #2575fc;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    form {
+      padding: 1.5rem 2rem;
+    }
+  
+    h2 {
+      font-size: 1.5rem;
+    }
+  
+    form input,
+    form button {
+      font-size: 0.9rem;
+      padding: 0.6rem;
+    }
+  }
+  

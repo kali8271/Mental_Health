@@ -1,40 +1,48 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Your Booked Therapy Sessions</h2>
-
-<ul>
-    {% for session in user_sessions %}
-        <li>
-            Session with {{ session.therapist.username }} on {{ session.session_date }}<br>
-            Duration: {{ session.session_duration }} minutes<br>
+  <div class="container">
+    <!-- Booked Therapy Sessions -->
+    <h2 class="section-title">Your Booked Therapy Sessions</h2>
+    <ul class="session-list">
+      {% for session in user_sessions %}
+        <li class="session-item">
+          <div class="session-details">
+            <strong>Session with</strong> {{ session.therapist.username }}<br>
+            <strong>Date:</strong> {{ session.session_date }}<br>
+            <strong>Duration:</strong> {{ session.session_duration }} minutes<br>
             <strong>Status:</strong> {% if session.booked %}Booked{% else %}Available{% endif %}
-            {% if session.booked %}
-                <!-- Cancel Booking Button -->
-                <form action="{% url 'cancel_booking' session.id %}" method="POST" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit">Cancel Booking</button>
-                </form>
-            {% endif %}
+          </div>
+          {% if session.booked %}
+            <!-- Cancel Booking Button -->
+            <form action="{% url 'cancel_booking' session.id %}" method="POST" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit" class="cancel-button">Cancel Booking</button>
+            </form>
+          {% endif %}
         </li>
-    {% empty %}
-        <li>You have no booked sessions.</li>
-    {% endfor %}
-</ul>
+      {% empty %}
+        <li class="no-sessions">You have no booked sessions.</li>
+      {% endfor %}
+    </ul>
 
-<h2>Available Therapy Sessions</h2>
-
-<ul>
-    {% for session in available_sessions %}
-        <li>
-            Session with {{ session.therapist.username }} on {{ session.session_date }}<br>
-            Duration: {{ session.session_duration }} minutes<br>
-            <a href="{% url 'checkout' session.id %}">Book Now</a>
+    <!-- Available Therapy Sessions -->
+    <h2 class="section-title">Available Therapy Sessions</h2>
+    <ul class="session-list">
+      {% for session in available_sessions %}
+        <li class="session-item">
+          <div class="session-details">
+            <strong>Session with</strong> {{ session.therapist.username }}<br>
+            <strong>Date:</strong> {{ session.session_date }}<br>
+            <strong>Duration:</strong> {{ session.session_duration }} minutes<br>
+          </div>
+          <a href="{% url 'checkout' session.id %}" class="book-now-button">Book Now</a>
         </li>
-    {% empty %}
-        <li>No available sessions at this time.</li>
-    {% endfor %}
-</ul>
+      {% empty %}
+        <li class="no-sessions">No available sessions at this time.</li>
+      {% endfor %}
+    </ul>
 
-<a href="{% url 'schedule_session' %}">Schedule New Session</a>
+    <a href="{% url 'schedule_session' %}" class="schedule-new-session">Schedule New Session</a>
+  </div>
 {% endblock %}
