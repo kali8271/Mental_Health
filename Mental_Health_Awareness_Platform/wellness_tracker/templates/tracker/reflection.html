@@ -1,10 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'tracker/base.html' %}
+
+{% block title %}Daily Reflection{% endblock %}
+
 {% block content %}
-  <h2>Daily Reflection</h2>
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save Reflection</button>
-  </form>
-  <a href="{% url 'reflection_list' %}">View Past Reflections</a>
+<div class="container">
+    <h1>Daily Reflection</h1>
+    <a href="{% url 'wellness_tracker:reflection_list' %}">View Past Reflections</a>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Reflection</button>
+    </form>
+</div>
 {% endblock %}

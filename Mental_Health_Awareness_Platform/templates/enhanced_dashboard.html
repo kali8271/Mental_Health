@@ -1,0 +1,297 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Enhanced Dashboard - Mental Health Platform{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/enhanced-style.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+<!-- Enhanced Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-brand">
+            <img src="{% static 'logo/logo.png' %}" alt="Logo" class="nav-logo">
+            <span class="nav-title">Mental Health Platform</span>
+        </div>
+        <ul class="navbar-nav">
+            <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+            <li><a href="{% url 'wellness_tracker:reflection_list' %}" class="nav-link">Wellness Tracker</a></li>
+            <li><a href="{% url 'therapy_sessions:session_list' %}" class="nav-link">Therapy Sessions</a></li>
+            <li><a href="{% url 'community:forum' %}" class="nav-link">Community</a></li>
+            <li><a href="{% url 'resources:resource_list' %}" class="nav-link">Resources</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'accounts:profile' %}" class="nav-link">Profile</a></li>
+                <li><a href="{% url 'accounts:logout' %}" class="nav-link">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'accounts:login' %}" class="nav-link">Login</a></li>
+            {% endif %}
+        </ul>
+        <button class="theme-toggle" title="Toggle theme">
+            🌙
+        </button>
+    </div>
+</nav>
+
+<!-- Main Dashboard Content -->
+<div class="container">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">Welcome back, {{ user.first_name|default:user.username }}! 👋</h1>
+        <p class="dashboard-subtitle">Track your mental wellness journey and discover tools for better mental health.</p>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="dashboard-stats">
+        <div class="stat-card">
+            <div class="stat-number" id="stat-mood-average">3.8</div>
+            <div class="stat-label">Average Mood</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="stat-streak-days">7</div>
+            <div class="stat-label">Day Streak</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="stat-sessions-completed">12</div>
+            <div class="stat-label">Sessions Completed</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="stat-goals-achieved">5</div>
+            <div class="stat-label">Goals Achieved</div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Mood Tracking Section -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">How are you feeling today?</h3>
+            </div>
+            <div class="card-body">
+                <div class="mood-tracker">
+                    <div class="mood-option" data-mood="very-sad">
+                        <div class="mood-emoji">😢</div>
+                        <div class="mood-label">Very Sad</div>
+                    </div>
+                    <div class="mood-option" data-mood="sad">
+                        <div class="mood-emoji">😔</div>
+                        <div class="mood-label">Sad</div>
+                    </div>
+                    <div class="mood-option" data-mood="neutral">
+                        <div class="mood-emoji">😐</div>
+                        <div class="mood-label">Neutral</div>
+                    </div>
+                    <div class="mood-option" data-mood="happy">
+                        <div class="mood-emoji">😊</div>
+                        <div class="mood-label">Happy</div>
+                    </div>
+                    <div class="mood-option" data-mood="very-happy">
+                        <div class="mood-emoji">😄</div>
+                        <div class="mood-label">Very Happy</div>
+                    </div>
+                </div>
+                <div id="mood-details" class="mt-6"></div>
+            </div>
+        </div>
+
+        <!-- Wellness Goals -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Wellness Goals</h3>
+            </div>
+            <div class="card-body">
+                <div id="wellness-goals">
+                    <!-- Goals will be loaded here by JavaScript -->
+                </div>
+                <button class="btn btn-primary mt-4" onclick="showGoalForm()">Add New Goal</button>
+            </div>
+        </div>
+
+        <!-- Mood Analytics -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Mood Trends</h3>
+            </div>
+            <div class="card-body">
+                <canvas id="moodChart" height="200"></canvas>
+            </div>
+        </div>
+
+        <!-- Activity Analytics -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Activity Distribution</h3>
+            </div>
+            <div class="card-body">
+                <canvas id="activityChart" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wellness Tools Section -->
+    <div class="mt-8">
+        <h2 class="text-center mb-8">Wellness Tools</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Meditation Timer -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">🧘‍♀️ Meditation Timer</h3>
+                </div>
+                <div class="card-body">
+                    <div class="meditation-timer">
+                        <div class="timer-display" id="timer-display">00:00</div>
+                        <div class="timer-controls">
+                            <button class="btn btn-primary" id="timer-start">Start</button>
+                            <button class="btn btn-secondary" id="timer-pause" style="display: none;">Pause</button>
+                            <button class="btn btn-error" id="timer-reset">Reset</button>
+                        </div>
+                        <div class="mt-4">
+                            <h4>Quick Presets:</h4>
+                            <div class="flex gap-2 mt-2">
+                                <button class="btn btn-sm btn-secondary timer-preset" data-minutes="5">5 min</button>
+                                <button class="btn btn-sm btn-secondary timer-preset" data-minutes="10">10 min</button>
+                                <button class="btn btn-sm btn-secondary timer-preset" data-minutes="15">15 min</button>
+                                <button class="btn btn-sm btn-secondary timer-preset" data-minutes="20">20 min</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Breathing Exercise -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">🫁 Breathing Exercise</h3>
+                </div>
+                <div class="card-body text-center">
+                    <div class="breathing-circle" id="breathing-circle">
+                        Ready
+                    </div>
+                    <div class="mt-4">
+                        <h4 id="breathing-instruction">Ready to begin...</h4>
+                        <p class="text-muted">Cycle: <span id="breathing-cycle">0</span></p>
+                    </div>
+                    <div class="mt-4">
+                        <button class="btn btn-primary" id="breathing-start">Start Breathing</button>
+                        <button class="btn btn-error" id="breathing-stop" style="display: none;">Stop</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Streak -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">🔥 Activity Streak</h3>
+                </div>
+                <div class="card-body">
+                    <div class="streak-card">
+                        <div class="streak-number" id="streak-number">7</div>
+                        <div class="streak-label">Days Active</div>
+                    </div>
+                    <div class="mt-4">
+                        <h4>Recent Activities:</h4>
+                        <ul class="mt-2">
+                            <li>✅ Meditation - 10 minutes</li>
+                            <li>✅ Exercise - 30 minutes</li>
+                            <li>✅ Journal Entry</li>
+                            <li>⏳ Therapy Session (Tomorrow)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="mt-8">
+        <h2 class="text-center mb-8">Quick Actions</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <a href="{% url 'wellness_tracker:reflection' %}" class="card text-center hover:shadow-lg transition-all">
+                <div class="p-6">
+                    <div class="text-4xl mb-4">📝</div>
+                    <h4>Add Reflection</h4>
+                    <p class="text-muted">Record your daily thoughts and feelings</p>
+                </div>
+            </a>
+            <a href="{% url 'therapy_sessions:schedule' %}" class="card text-center hover:shadow-lg transition-all">
+                <div class="p-6">
+                    <div class="text-4xl mb-4">📅</div>
+                    <h4>Schedule Session</h4>
+                    <p class="text-muted">Book a therapy or counseling session</p>
+                </div>
+            </a>
+            <a href="{% url 'community:create_post' %}" class="card text-center hover:shadow-lg transition-all">
+                <div class="p-6">
+                    <div class="text-4xl mb-4">💬</div>
+                    <h4>Share Experience</h4>
+                    <p class="text-muted">Connect with the community</p>
+                </div>
+            </a>
+            <a href="{% url 'resources:resource_list' %}" class="card text-center hover:shadow-lg transition-all">
+                <div class="p-6">
+                    <div class="text-4xl mb-4">📚</div>
+                    <h4>Browse Resources</h4>
+                    <p class="text-muted">Access mental health resources</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Notifications Section -->
+    <div class="mt-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">📢 Notifications & Reminders</h3>
+            </div>
+            <div class="card-body">
+                <div id="notifications-list">
+                    <!-- Notifications will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Goal Form Modal -->
+<div id="goal-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Add New Wellness Goal</h3>
+            <span class="close" onclick="closeGoalForm()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="goal-form">
+                <div class="form-group">
+                    <label for="goal-title">Goal Title</label>
+                    <input type="text" id="goal-title" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="goal-description">Description</label>
+                    <textarea id="goal-description" class="form-textarea" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="goal-target">Target Value</label>
+                    <input type="number" id="goal-target" class="form-input" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="goal-deadline">Deadline</label>
+                    <input type="date" id="goal-deadline" class="form-input" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Create Goal</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeGoalForm()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/enhanced-scripts.js' %}"></script>
+{% endblock %} 

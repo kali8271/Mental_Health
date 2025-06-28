@@ -6,22 +6,22 @@
     </div>
     <ul>
         <li><a href="{% url 'home' %}">Home</a></li>
-        <li><a href="{% url 'session_list' %}">Therapy Sessions</a></li>
-        <li><a href="{% url 'reflection_list' %}">Wellness Tracker</a></li>
-        <li><a href="{% url 'resource_list' %}">Resources</a></li>
-        <li><a href="{% url 'forum' %}">Community</a></li>
+        <li><a href="{% url 'therapy_sessions:session_list' %}">Therapy Sessions</a></li>
+        <li><a href="{% url 'wellness_tracker:reflection_list' %}">Wellness Tracker</a></li>
+        <li><a href="{% url 'resources:resource_list' %}">Resources</a></li>
+        <li><a href="{% url 'community:forum' %}">Community</a></li>
         {% if user.is_authenticated %}
-            <li><a href="{% url 'profile' %}">Profile</a></li>
-            <li><a href="{% url 'chat_room' room_name='general' %}">Chat</a></li>
-            <li><a href="{% url 'logout' %}">Logout</a></li>
+            <li><a href="{% url 'accounts:profile' %}">Profile</a></li>
+            <li><a href="{% url 'chat:chat_room' room_name='general' %}">Chat</a></li>
+            <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
             <li class="navbar-item">
                 <!-- Profile Image -->
                 <img src="{% if user.profile.role == 'therapist' and user.profile.therapist_photo %}{{ user.profile.therapist_photo.url }}{% elif user.profile.role == 'client' and user.profile.client_photo %}{{ user.profile.client_photo.url }}{% else %}/static/default-profile.jpg{% endif %}" alt="Profile Image" class="profile-img">
                 <span class="username">{{ user.username }}</span>  <!-- Display Username -->
             </li>
         {% else %}
-            <li><a href="{% url 'login' %}">Login</a></li>
-            <li><a href="{% url 'register' %}">Register</a></li>
+            <li><a href="{% url 'accounts:login' %}">Login</a></li>
+            <li><a href="{% url 'accounts:register' %}">Register</a></li>
         {% endif %}
     </ul>
 </nav>

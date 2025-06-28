@@ -1,0 +1,406 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Enhanced Daily Reflection - Mental Health Platform{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/enhanced-style.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Header -->
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">Daily Reflection</h1>
+        <p class="dashboard-subtitle">Take a moment to reflect on your day and track your wellness journey.</p>
+    </div>
+
+    <!-- Quick Mood Check -->
+    <div class="card mb-6">
+        <div class="card-header">
+            <h3 class="card-title">How are you feeling right now?</h3>
+        </div>
+        <div class="card-body">
+            <div class="mood-tracker">
+                <div class="mood-option" data-mood="1">
+                    <div class="mood-emoji">😢</div>
+                    <div class="mood-label">Very Sad</div>
+                </div>
+                <div class="mood-option" data-mood="2">
+                    <div class="mood-emoji">😔</div>
+                    <div class="mood-label">Sad</div>
+                </div>
+                <div class="mood-option" data-mood="3">
+                    <div class="mood-emoji">😐</div>
+                    <div class="mood-label">Neutral</div>
+                </div>
+                <div class="mood-option" data-mood="4">
+                    <div class="mood-emoji">😊</div>
+                    <div class="mood-label">Happy</div>
+                </div>
+                <div class="mood-option" data-mood="5">
+                    <div class="mood-emoji">😄</div>
+                    <div class="mood-label">Very Happy</div>
+                </div>
+            </div>
+            <div id="mood-details" class="mt-4"></div>
+        </div>
+    </div>
+
+    <!-- Main Reflection Form -->
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+        
+        <!-- Emotional Wellbeing Section -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Emotional Wellbeing</h3>
+            </div>
+            <div class="card-body">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Mood Rating -->
+                    <div class="form-group">
+                        <label class="form-label">Mood Rating</label>
+                        {{ form.mood_rating }}
+                        {% if form.mood_rating.errors %}
+                            <div class="alert alert-error">{{ form.mood_rating.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Anxiety Level -->
+                    <div class="form-group">
+                        <label class="form-label">Anxiety Level</label>
+                        {{ form.anxiety_level }}
+                        {% if form.anxiety_level.errors %}
+                            <div class="alert alert-error">{{ form.anxiety_level.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Stress Level -->
+                    <div class="form-group">
+                        <label class="form-label">Stress Level (1-10)</label>
+                        <div class="flex items-center gap-4">
+                            <input type="range" name="stress_level" min="1" max="10" value="{{ form.stress_level.value|default:5 }}" 
+                                   class="flex-1" id="stress-slider">
+                            <span id="stress-value" class="text-lg font-semibold">{{ form.stress_level.value|default:5 }}</span>
+                        </div>
+                        {% if form.stress_level.errors %}
+                            <div class="alert alert-error">{{ form.stress_level.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Physical Health Section -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Physical Health</h3>
+            </div>
+            <div class="card-body">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Sleep Hours -->
+                    <div class="form-group">
+                        <label class="form-label">Sleep Hours</label>
+                        {{ form.sleep_hours }}
+                        {% if form.sleep_hours.errors %}
+                            <div class="alert alert-error">{{ form.sleep_hours.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Sleep Quality -->
+                    <div class="form-group">
+                        <label class="form-label">Sleep Quality</label>
+                        {{ form.sleep_quality }}
+                        {% if form.sleep_quality.errors %}
+                            <div class="alert alert-error">{{ form.sleep_quality.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Exercise Minutes -->
+                    <div class="form-group">
+                        <label class="form-label">Exercise (minutes)</label>
+                        {{ form.exercise_minutes }}
+                        {% if form.exercise_minutes.errors %}
+                            <div class="alert alert-error">{{ form.exercise_minutes.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Water Intake -->
+                    <div class="form-group">
+                        <label class="form-label">Water Intake (glasses)</label>
+                        {{ form.water_intake_glasses }}
+                        {% if form.water_intake_glasses.errors %}
+                            <div class="alert alert-error">{{ form.water_intake_glasses.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social & Support Section -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Social & Support</h3>
+            </div>
+            <div class="card-body">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Social Interactions -->
+                    <div class="form-group">
+                        <label class="form-label">Social Interactions</label>
+                        {{ form.social_interactions }}
+                        <small class="text-muted">Number of meaningful social interactions today</small>
+                        {% if form.social_interactions.errors %}
+                            <div class="alert alert-error">{{ form.social_interactions.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Support Checkboxes -->
+                    <div class="form-group">
+                        <label class="form-label">Support</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center gap-2">
+                                {{ form.support_received }}
+                                <span>Received support today</span>
+                            </label>
+                            <label class="flex items-center gap-2">
+                                {{ form.support_provided }}
+                                <span>Provided support to others</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reflection & Gratitude Section -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Reflection & Gratitude</h3>
+            </div>
+            <div class="card-body">
+                <div class="space-y-6">
+                    <!-- Main Reflection -->
+                    <div class="form-group">
+                        <label class="form-label">How are you feeling today?</label>
+                        {{ form.reflection_text }}
+                        {% if form.reflection_text.errors %}
+                            <div class="alert alert-error">{{ form.reflection_text.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Gratitude -->
+                    <div class="form-group">
+                        <label class="form-label">What are you grateful for today?</label>
+                        {{ form.gratitude_entries }}
+                        <small class="text-muted">List one thing per line</small>
+                        {% if form.gratitude_entries.errors %}
+                            <div class="alert alert-error">{{ form.gratitude_entries.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Challenges -->
+                    <div class="form-group">
+                        <label class="form-label">What challenges did you face today?</label>
+                        {{ form.challenges_faced }}
+                        {% if form.challenges_faced.errors %}
+                            <div class="alert alert-error">{{ form.challenges_faced.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Coping Strategies -->
+                    <div class="form-group">
+                        <label class="form-label">How did you cope with challenges?</label>
+                        {{ form.coping_strategies }}
+                        {% if form.coping_strategies.errors %}
+                            <div class="alert alert-error">{{ form.coping_strategies.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Goals & Activities Section -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Goals & Activities</h3>
+            </div>
+            <div class="card-body">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Daily Goals -->
+                    <div class="form-group">
+                        <label class="form-label">Goals for Today</label>
+                        {{ form.daily_goals }}
+                        <small class="text-muted">List one goal per line</small>
+                        {% if form.daily_goals.errors %}
+                            <div class="alert alert-error">{{ form.daily_goals.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Goals Achieved -->
+                    <div class="form-group">
+                        <label class="form-label">Goals Achieved</label>
+                        {{ form.goals_achieved }}
+                        <small class="text-muted">List achieved goals per line</small>
+                        {% if form.goals_achieved.errors %}
+                            <div class="alert alert-error">{{ form.goals_achieved.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Self Care Activities -->
+                <div class="form-group mt-6">
+                    <label class="form-label">Self Care Activities</label>
+                    {{ form.self_care_activities }}
+                    <small class="text-muted">What self-care activities did you do today?</small>
+                    {% if form.self_care_activities.errors %}
+                        <div class="alert alert-error">{{ form.self_care_activities.errors.0 }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Tracking -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Additional Tracking</h3>
+            </div>
+            <div class="card-body">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Medication -->
+                    <div class="form-group">
+                        <label class="flex items-center gap-2">
+                            {{ form.medication_taken }}
+                            <span>Medication taken as prescribed</span>
+                        </label>
+                    </div>
+
+                    <!-- Therapy Session -->
+                    <div class="form-group">
+                        <label class="flex items-center gap-2">
+                            {{ form.therapy_session }}
+                            <span>Had therapy session today</span>
+                        </label>
+                    </div>
+
+                    <!-- Placeholder for future fields -->
+                    <div class="form-group">
+                        <!-- Future tracking fields can go here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit Buttons -->
+        <div class="flex gap-4 justify-end">
+            <a href="{% url 'wellness_tracker:reflection_list' %}" class="btn btn-secondary">
+                Cancel
+            </a>
+            <button type="submit" class="btn btn-primary">
+                Save Reflection
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Recent Data Context -->
+{% if recent_data %}
+<div class="fixed bottom-4 right-4 bg-white rounded-lg shadow-lg p-4 max-w-sm">
+    <h4 class="font-semibold mb-2">Recent Trends</h4>
+    <div class="space-y-1 text-sm">
+        <div>Avg Mood: {{ recent_data.recent_mood|slice:":3"|join:", " }}</div>
+        <div>Avg Anxiety: {{ recent_data.recent_anxiety|slice:":3"|join:", " }}</div>
+        <div>Last Exercise: {{ recent_data.last_exercise }} min</div>
+        <div>Last Social: {{ recent_data.last_social }} interactions</div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/enhanced-scripts.js' %}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize mood tracker
+    const moodOptions = document.querySelectorAll('.mood-option');
+    const moodSelect = document.getElementById('mood-rating');
+    
+    moodOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            const moodValue = this.dataset.mood;
+            
+            // Update visual selection
+            moodOptions.forEach(opt => opt.classList.remove('selected'));
+            this.classList.add('selected');
+            
+            // Update form field
+            if (moodSelect) {
+                moodSelect.value = moodValue;
+            }
+            
+            // Show mood details
+            showMoodDetails(moodValue);
+        });
+    });
+    
+    // Initialize stress slider
+    const stressSlider = document.getElementById('stress-slider');
+    const stressValue = document.getElementById('stress-value');
+    
+    if (stressSlider && stressValue) {
+        stressSlider.addEventListener('input', function() {
+            stressValue.textContent = this.value;
+        });
+    }
+    
+    // Show mood details function
+    function showMoodDetails(mood) {
+        const detailsContainer = document.getElementById('mood-details');
+        if (!detailsContainer) return;
+        
+        const moodData = {
+            '1': { label: 'Very Sad', color: 'text-red-600', bg: 'bg-red-50' },
+            '2': { label: 'Sad', color: 'text-orange-600', bg: 'bg-orange-50' },
+            '3': { label: 'Neutral', color: 'text-yellow-600', bg: 'bg-yellow-50' },
+            '4': { label: 'Happy', color: 'text-green-600', bg: 'bg-green-50' },
+            '5': { label: 'Very Happy', color: 'text-blue-600', bg: 'bg-blue-50' }
+        };
+        
+        const data = moodData[mood];
+        if (data) {
+            detailsContainer.innerHTML = `
+                <div class="alert ${data.bg} border-l-4 border-${data.color.split('-')[1]}-500">
+                    <div class="flex items-center gap-2">
+                        <span class="text-lg">${mood === '1' ? '😢' : mood === '2' ? '😔' : mood === '3' ? '😐' : mood === '4' ? '😊' : '😄'}</span>
+                        <span class="font-medium">${data.label}</span>
+                    </div>
+                    <p class="mt-1 text-sm">Remember, it's okay to feel this way. Every emotion is valid.</p>
+                </div>
+            `;
+        }
+    }
+    
+    // Auto-save functionality
+    let autoSaveTimer;
+    const form = document.querySelector('form');
+    
+    form.addEventListener('input', function() {
+        clearTimeout(autoSaveTimer);
+        autoSaveTimer = setTimeout(() => {
+            // Show auto-save indicator
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Auto-saving...';
+            submitBtn.disabled = true;
+            
+            // Simulate auto-save (in real implementation, save to localStorage or send AJAX)
+            setTimeout(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 1000);
+        }, 2000);
+    });
+});
+</script>
+{% endblock %} 

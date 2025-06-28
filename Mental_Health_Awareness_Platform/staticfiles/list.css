@@ -1,0 +1,268 @@
+/* General Body Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Container for the whole content */
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Title for each section */
+.section-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Session List */
+.session-list {
+    list-style: none;
+    padding: 0;
+}
+
+.session-item {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.session-item .session-details {
+    font-size: 16px;
+    color: #555;
+}
+
+.session-item a, .session-item button {
+    font-size: 16px;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.book-now-button {
+    background-color: #0056b3;
+    text-align: center;
+}
+
+.book-now-button:hover {
+    background-color: #00408d;
+}
+
+.cancel-button {
+    background-color: #e74c3c;
+    border: none;
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+    background-color: #c0392b;
+}
+
+.no-sessions {
+    font-size: 18px;
+    color: #888;
+    text-align: center;
+}
+
+/* Button and link for scheduling new session */
+.schedule-new-session {
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #0056b3;
+    margin-top: 30px;
+    text-decoration: none;
+}
+
+.schedule-new-session:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    .session-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .session-item .session-details {
+        margin-bottom: 10px;
+    }
+
+    .book-now-button, .cancel-button {
+        width: 100%;
+        text-align: center;
+    }
+}
+/* General Body Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Container for the whole content */
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Title for each section */
+.section-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Session List */
+.session-list {
+    list-style: none;
+    padding: 0;
+}
+
+.session-item {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.session-item .session-details {
+    font-size: 16px;
+    color: #555;
+}
+
+.session-item a, .session-item button {
+    font-size: 16px;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.book-now-button {
+    background-color: #0056b3;
+    text-align: center;
+}
+
+.book-now-button:hover {
+    background-color: #00408d;
+}
+
+/* Cancel Button Styling */
+/* Cancel Button Styling */
+.cancel-button {
+    background-color: #e74c3c; /* Red color for cancellation */
+    color: #fff;
+    padding: 6px 12px; /* Reduced padding for a smaller button */
+    border: none;
+    border-radius: 4px; /* Slightly smaller border radius */
+    cursor: pointer;
+    font-size: 14px; /* Reduced font size */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+    text-align: center;
+}
+
+/* Hover Effect for Cancel Button */
+.cancel-button:hover {
+    background-color: #c0392b; /* Darker red when hovered */
+    transform: scale(1.05); /* Slightly enlarges the button to give feedback */
+}
+
+/* Focus Effect for Accessibility */
+.cancel-button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(231, 76, 60, 0.7); /* Red glow on focus */
+}
+
+/* Disabled Cancel Button */
+.cancel-button:disabled {
+    background-color: #f2d7d5;
+    cursor: not-allowed;
+    color: #ccc;
+    transform: none;
+}
+
+
+.no-sessions {
+    font-size: 18px;
+    color: #888;
+    text-align: center;
+}
+
+/* Button and link for scheduling new session */
+.schedule-new-session {
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #0056b3;
+    margin-top: 30px;
+    text-decoration: none;
+}
+
+.schedule-new-session:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    .session-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .session-item .session-details {
+        margin-bottom: 10px;
+    }
+
+    .book-now-button, .cancel-button {
+        width: 100%;
+        text-align: center;
+    }
+}

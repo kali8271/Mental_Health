@@ -1,16 +1,29 @@
-{% extends 'base.html' %}
+{% extends 'tracker/base.html' %}
+
+{% block title %}Reflection List{% endblock %}
+
 {% block content %}
-  <h2>Your Reflections</h2>
-  <ul>
-    {% for reflection in reflections %}
-      <li>
-        <strong>{{ reflection.date }}:</strong> Mood: {{ reflection.mood }}<br>
-        Thoughts: {{ reflection.thoughts }}<br>
-        Gratitude: {{ reflection.gratitude }}
-      </li>
-    {% empty %}
-      <li>No reflections found.</li>
-    {% endfor %}
-  </ul>
-  <a href="{% url 'add_reflection' %}">Add a new reflection</a>
+<div class="container">
+    <h1>Your Reflections</h1>
+    
+    {% if reflections %}
+        <div class="reflection-list">
+            {% for reflection in reflections %}
+                <div class="reflection-item">
+                    <h3>{{ reflection.date }}</h3>
+                    <p>Mood: {{ reflection.get_mood_rating_display }}</p>
+                    <p>Anxiety Level: {{ reflection.get_anxiety_level_display }}</p>
+                    <p>Stress Level: {{ reflection.stress_level }}/10</p>
+                    {% if reflection.reflection_text %}
+                        <p>{{ reflection.reflection_text }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No reflections yet.</p>
+    {% endif %}
+    
+    <a href="{% url 'wellness_tracker:reflection' %}" class="btn btn-primary">Add a new reflection</a>
+</div>
 {% endblock %}

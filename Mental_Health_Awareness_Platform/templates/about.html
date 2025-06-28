@@ -1,42 +1,95 @@
 <!-- templates/about.html -->
 
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us - Mental Health Platform{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 class="text-center">About Our Mental Health Awareness Platform</h2>
-    <p class="lead text-center">Promoting Mental Wellness and Support</p>
-    
-    <div class="row mt-4">
-        <div class="col-md-6">
-            <h4>Our Mission</h4>
-            <p>At our Mental Health Awareness Platform, we aim to provide a safe and supportive environment for individuals to learn about mental health, access resources, and connect with professionals. Our mission is to reduce stigma and promote understanding of mental health issues.</p>
+<div class="about-section">
+    <div class="container">
+        <div class="about-header">
+            <h1>About Mental Health Awareness Platform</h1>
+            <p>Dedicated to promoting mental health awareness, providing support, and connecting individuals with valuable resources.</p>
         </div>
-        <div class="col-md-6">
-            <h4>What We Offer</h4>
-            <ul>
-                <li>Access to licensed therapists and counselors.</li>
-                <li>Online therapy sessions for convenience and comfort.</li>
-                <li>A wellness tracker to monitor mental health progress.</li>
-                <li>Resource library with articles, videos, and guides.</li>
-                <li>A community forum for peer support and discussion.</li>
-            </ul>
+
+        <div class="about-content">
+            <div class="mission-section">
+                <h2>Our Mission</h2>
+                <p>We aim to reduce the stigma surrounding mental health and provide users with the tools they need to seek help and support. Our goal is to build a community where everyone feels comfortable discussing their mental health challenges and successes.</p>
+            </div>
+
+            <div class="services-section">
+                <h2>What We Offer</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <h3>Professional Therapy</h3>
+                        <p>Connect with licensed therapists for online therapy sessions tailored to your needs.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <h3>Wellness Tracking</h3>
+                        <p>Track your mental health journey with our comprehensive wellness tracker.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <h3>Community Support</h3>
+                        <p>Join forums to share experiences, advice, and support with others.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <h3>Educational Resources</h3>
+                        <p>Access a library of articles, videos, and guides on mental health topics.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <h3>Live Chat Support</h3>
+                        <p>Interact with specialists through our live chat feature.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <h2>Our Team</h2>
+                <p>We are a dedicated team of mental health professionals, developers, and advocates committed to making mental health support accessible to everyone.</p>
+            </div>
+
+            <div class="contact-section">
+                <h2>Get in Touch</h2>
+                <p>If you have any questions, need support, or would like to get involved, please reach out to us!</p>
+                <div class="contact-info">
+                    <p><strong>Email:</strong> <a href="mailto:akalimullah900@gmail.com">akalimullah900@gmail.com</a></p>
+                    <p><strong>Phone:</strong> <a href="tel:8271446964">8271446964</a></p>
+                </div>
+            </div>
+
+            <div class="social-section">
+                <h2>Follow Us</h2>
+                <p>Stay updated on our latest news, events, and resources by following us on social media:</p>
+                <div class="social-links">
+                    <a href="https://x.com/Kalimul16605569" target="_blank" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.facebook.com/kalimullah%20Ansari" target="_blank" class="social-link">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="https://www.instagram.com/chand.5047" target="_blank" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/kalimullah-ansari-397680250/" target="_blank" class="social-link">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/kali8271" target="_blank" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="mt-5">
-        <h4>Why Mental Health Matters</h4>
-        <p>Mental health is essential to overall well-being. It affects how we think, feel, and act, influencing our ability to handle stress, relate to others, and make choices. By fostering mental health awareness, we aim to encourage individuals to seek help and support when needed.</p>
-    </div>
-
-    <div class="mt-5">
-        <h4>Join Us in Making a Difference</h4>
-        <p>We believe that everyone deserves access to mental health support. Join us in our mission to create a more supportive community and spread awareness about mental health issues. Together, we can break the stigma and promote mental wellness for all.</p>
-    </div>
-
-    <div class="text-center mt-4">
-        <a href="{% url 'contact' %}" class="btn btn-primary">Contact Us</a>
-        <a href="{% url 'resource_list' %}" class="btn btn-secondary">Explore Resources</a>
+        <div class="about-actions">
+            <a href="{% url 'contact' %}" class="btn btn-primary">Contact Us</a>
+            <a href="{% url 'resources:resource_list' %}" class="btn btn-secondary">Explore Resources</a>
+        </div>
     </div>
 </div>
 {% endblock %}

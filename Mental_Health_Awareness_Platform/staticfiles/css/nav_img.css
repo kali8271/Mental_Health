@@ -1,0 +1,74 @@
+/* Navbar Styling */
+nav {
+    background-color: #3498db;
+    padding: 10px 20px;  /* Padding around navbar */
+    display: flex;
+    align-items: center; /* Align items vertically */
+    /* justify-content: space-right;  */
+    /* Space between logo and navbar items */
+}
+
+/* Space between logo and nav items */
+.logo {
+    margin-right: 2px; 
+}
+
+.logo img {
+    height: 40px; /* Adjust height as needed */
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center; /* Vertically center navbar items */
+}
+
+nav ul li {
+    margin-right: 20px; /* Space between items */
+}
+
+nav ul li:last-child {
+    margin-right: 0; /* Remove right margin from last item */
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Profile Image Styling */
+.navbar-item {
+    display: flex;
+    align-items: center;  /* Align image and text horizontally */
+    margin-left: 20px;     /* Optional: Space before profile image */
+}
+
+.profile-img {
+    width: 40px;  /* Set the size of the profile image */
+    height: 40px;
+    border-radius: 50%;  /* Make the image circular */
+    object-fit: cover;   /* Ensures the image fits within the circle */
+    margin-right: 10px;   /* Space between image and username */
+}
+
+.username {
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Hover effects for profile item */
+.navbar-item:hover .profile-img {
+    transform: scale(1.05);  /* Slight zoom effect on image */
+}
+
+.navbar-item:hover .username {
+    color: #f39c12;  /* Change username color on hover */
+}

@@ -1,38 +1,78 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Mental Health and Wellness Platform{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        .form-input {
+            @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+        }
+        .form-textarea {
+            @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+        }
+        .form-select {
+            @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+        }
+        .form-checkbox {
+            @apply h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded;
+        }
+        .mood-radio-group {
+            @apply flex space-x-4;
+        }
+        .mood-radio-group input[type="radio"] {
+            @apply sr-only;
+        }
+        .mood-radio-group label {
+            @apply cursor-pointer p-2 rounded-lg border-2 border-gray-200 hover:border-blue-300 transition-colors;
+        }
+        .mood-radio-group input[type="radio"]:checked + label {
+            @apply border-blue-500 bg-blue-50;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-gray-50 min-h-screen">
 
     <!-- Navigation Bar -->
-    <nav>
-        <ul>
-            <li><a href="{% url 'home' %}">Home</a></li>
-            {% if user.is_authenticated %}
-                <li><a href="{% url 'profile' %}">Profile</a></li>
-                <li><a href="{% url 'session_list' %}">Sessions</a></li>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
-            {% else %}
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
-            {% endif %}
-        </ul>
+    <nav class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-8">
+                    <a href="{% url 'home' %}" class="text-xl font-bold text-gray-800">Wellness Tracker</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'wellness_tracker:reflection_list' %}" class="text-gray-600 hover:text-gray-800">Reflections</a>
+                        <a href="{% url 'wellness_tracker:goals_list' %}" class="text-gray-600 hover:text-gray-800">Goals</a>
+                        <a href="{% url 'wellness_tracker:activities_list' %}" class="text-gray-600 hover:text-gray-800">Activities</a>
+                    {% endif %}
+                </div>
+                <div class="flex items-center space-x-4">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'accounts:profile' %}" class="text-gray-600 hover:text-gray-800">Profile</a>
+                        <a href="{% url 'accounts:logout' %}" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">Logout</a>
+                    {% else %}
+                        <a href="{% url 'accounts:login' %}" class="text-gray-600 hover:text-gray-800">Login</a>
+                        <a href="{% url 'accounts:register' %}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Register</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </nav>
 
     <!-- Main Content Block -->
-    <div class="content">
+    <main class="flex-1">
         {% block content %}
         <!-- Child templates will inject their content here -->
         {% endblock %}
-    </div>
+    </main>
 
     <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Mental Health and Wellness Platform</p>
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="max-w-7xl mx-auto px-4 py-6">
+            <p class="text-center text-gray-600">&copy; 2024 Mental Health and Wellness Platform</p>
+        </div>
     </footer>
 
 </body>

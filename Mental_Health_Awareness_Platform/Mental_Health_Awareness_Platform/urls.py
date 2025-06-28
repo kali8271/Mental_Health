@@ -27,6 +27,7 @@ urlpatterns = [
     path('terms/',terms, name='terms'),
     path('privacy/',privacy, name='privacy'),
     path('contact/',contact, name='contact'),
+    path('enhanced-dashboard/', enhanced_dashboard, name='enhanced_dashboard'),
     path('accounts/', include('accounts.urls')),
     path('sessions/', include('therapy_sessions.urls')),
     path('tracker/', include('wellness_tracker.urls')),
@@ -44,3 +45,4 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
