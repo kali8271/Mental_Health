@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}AI Mental Health Assistant Chat{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto mt-10 bg-white rounded-lg shadow-lg p-6">
+    <h2 class="text-2xl font-bold mb-4 text-center">AI Mental Health Assistant</h2>
+    <div id="chat-history" class="h-96 overflow-y-auto border rounded p-4 bg-gray-50 mb-4">
+        {% for msg in messages %}
+            <div class="mb-3">
+                {% if msg.message_type == 'user' %}
+                    <div class="text-right">
+                        <span class="inline-block bg-blue-100 text-blue-800 px-3 py-2 rounded-lg">{{ msg.content }}</span>
+                        <span class="text-xs text-gray-400 ml-2">You</span>
+                    </div>
+                {% elif msg.message_type == 'ai' %}
+                    <div class="text-left">
+                        <span class="inline-block bg-green-100 text-green-800 px-3 py-2 rounded-lg">{{ msg.content|linebreaksbr }}</span>
+                        <span class="text-xs text-gray-400 ml-2">AI</span>
+                    </div>
+                {% else %}
+                    <div class="text-center text-gray-500 text-xs">{{ msg.content }}</div>
+                {% endif %}
+            </div>
+        {% empty %}
+            <div class="text-center text-gray-400">No messages yet. Start the conversation!</div>
+        {% endfor %}
+    </div>
+    <form id="chat-form" class="flex gap-2">
+        <input type="hidden" id="conversation-id" value="{{ conversation.id }}">
+        <input type="text" id="user-message" class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring" placeholder="Type your message..." autocomplete="off" required>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Send</button>
+    </form>
+    <div id="ai-typing" class="text-sm text-gray-500 mt-2 hidden">AI is typing...</div>
+</div>
+
+<script>
+const chatForm = document.getElementById('chat-form');
+const chatHistory = document.getElementById('chat-history');
+const userMessageInput = document.getElementById('user-message');
+const conversationId = document.getElementById('conversation-id').value;
+const aiTyping = document.getElementById('ai-typing');
+
+chatForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const message = userMessageInput.value.trim();
+    if (!message) return;
+    // Add user message to chat
+    chatHistory.innerHTML += `<div class='mb-3 text-right'><span class='inline-block bg-blue-100 text-blue-800 px-3 py-2 rounded-lg'>${message}</span> <span class='text-xs text-gray-400 ml-2'>You</span></div>`;
+    chatHistory.scrollTop = chatHistory.scrollHeight;
+    userMessageInput.value = '';
+    aiTyping.classList.remove('hidden');
+    // Send message via AJAX
+    fetch("{% url 'ai_assistant:send_message' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}',
+        },
+        body: JSON.stringify({
+            message: message,
+            conversation_id: conversationId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        aiTyping.classList.add('hidden');
+        chatHistory.innerHTML += `<div class='mb-3 text-left'><span class='inline-block bg-green-100 text-green-800 px-3 py-2 rounded-lg'>${data.response.replace(/\n/g, '<br>')}</span> <span class='text-xs text-gray-400 ml-2'>AI</span></div>`;
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+    })
+    .catch(() => {
+        aiTyping.classList.add('hidden');
+        chatHistory.innerHTML += `<div class='mb-3 text-center text-red-500'>Error: Could not get a response from the AI.</div>`;
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+    });
+});
+</script>
+{% endblock %} 
